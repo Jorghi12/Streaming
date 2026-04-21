@@ -11,8 +11,8 @@ type IconName =
   | "robot"
   | "spark";
 
-const designPartnerHref =
-  "mailto:jorg@stream.ai?subject=Stream%20Different%20Design%20Partner";
+const designPartnerMailto =
+  "mailto:jorg@stream.ai?subject=Liveplane%20Design%20Partner";
 
 const heroOutcomes = [
   {
@@ -27,7 +27,8 @@ const heroOutcomes = [
   },
   {
     title: "Action",
-    detail: "Emit clips, alerts, transcripts, metadata, and workflow triggers while the stream is live.",
+    detail:
+      "Generate clips, alerts, transcripts, metadata, and workflow triggers while the stream is live.",
     icon: "bolt"
   }
 ] satisfies Array<{ title: string; detail: string; icon: IconName }>;
@@ -60,7 +61,7 @@ const useCases = [
   },
   {
     title: "Live commerce",
-    detail: "Smarter selling, more reusable moments, stronger operator assistance.",
+    detail: "Smarter selling, more reusable moments, and better real-time host assistance.",
     icon: "cart"
   },
   {
@@ -75,10 +76,37 @@ const useCases = [
   }
 ] satisfies Array<{ title: string; detail: string; icon: IconName }>;
 
+const exampleWorkflows = [
+  {
+    title: "Live sports clipping and metadata",
+    detail:
+      "Detect key moments, generate clips and structured metadata in real time, and reduce manual post-production overhead.",
+    icon: "video"
+  },
+  {
+    title: "Live commerce operator copilot",
+    detail:
+      "Assist hosts in real time, surface product-relevant moments, and create reusable outputs from the same session.",
+    icon: "cart"
+  },
+  {
+    title: "Camera-event detection and alerts",
+    detail:
+      "Turn passive video into operational awareness with event detection, alerts, and searchable output.",
+    icon: "shield"
+  },
+  {
+    title: "Summarization and guidance for live operations",
+    detail:
+      "Support telehealth, robotics, or industrial workflows with low-latency visibility, summaries, and decision support.",
+    icon: "robot"
+  }
+] satisfies Array<{ title: string; detail: string; icon: IconName }>;
+
 const partnerHighlights = [
   "Founder-led implementation",
   "Priority roadmap influence",
-  "Fast iteration around one measurable workflow",
+  "Rapid iteration on one measurable workflow",
   "Early access economics",
   "Strategic upside for early partners"
 ];
@@ -202,9 +230,9 @@ function App() {
     <div className="page-shell">
       <div className="page-frame">
         <header className="topbar">
-          <a className="brand" href="#top" aria-label="Stream Different">
+          <a className="brand" href="#top" aria-label="Liveplane">
             <span className="brand-mark" />
-            <span className="brand-word">Stream Different</span>
+            <span className="brand-word">Liveplane</span>
           </a>
 
           <nav className="topnav" aria-label="Primary">
@@ -213,7 +241,7 @@ function App() {
             <a href="#design-partner">Program</a>
           </nav>
 
-          <a className="topbar-cta" href={designPartnerHref}>
+          <a className="topbar-cta" href={designPartnerMailto}>
             Become a design partner
           </a>
         </header>
@@ -224,18 +252,18 @@ function App() {
               <span className="eyebrow">Real-time video operations</span>
               <h1>Turn live video into real-time revenue, automation, and action.</h1>
               <p className="hero-subheadline">
-                Stream Different is an edge-first runtime for teams that already operate on
-                live video. It understands streams as they happen, modifies outputs in real
+                Liveplane is an edge-first runtime for teams that already operate on
+                live video. It processes streams as they happen, modifies outputs in real
                 time, and emits downstream actions from the same session.
               </p>
               <p className="hero-support">
                 Use it to improve live experiences, automate manual workflows, generate
-                operational signals instantly, and launch new products on top of live video
-                without rebuilding your stack.
+                operational signals in real time, and launch new products on top of live
+                video without rebuilding your stack.
               </p>
 
               <div className="hero-actions">
-                <a className="primary-button" href={designPartnerHref}>
+                <a className="primary-button" href={designPartnerMailto}>
                   Become a design partner
                 </a>
                 <a className="secondary-button" href="#use-cases">
@@ -244,7 +272,9 @@ function App() {
               </div>
 
               <p className="hero-trust">
-                Built for teams where live video already drives revenue or operations.
+                Built for teams where live video already drives revenue or operations
+                {" \u2014 "}including sports, commerce, security, healthcare, robotics,
+                and workflow platforms.
               </p>
             </div>
 
@@ -320,7 +350,29 @@ function App() {
             </div>
           </section>
 
-          <section className="section row-grid" id="design-partner">
+          <section
+            className="section section--ruled section--centered section--workflow"
+            id="example-workflows"
+          >
+            <div className="section-head section-head--centered">
+              <span className="eyebrow">Example first workflows</span>
+              <h2>What an initial deployment could look like</h2>
+            </div>
+
+            <div className="workflow-grid">
+              {exampleWorkflows.map((workflow) => (
+                <article className="workflow-card" key={workflow.title}>
+                  <div className="icon-badge icon-badge--workflow">
+                    <Icon name={workflow.icon} />
+                  </div>
+                  <h3>{workflow.title}</h3>
+                  <p>{workflow.detail}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="section section--conversion row-grid" id="design-partner">
             <div className="feature-card feature-card--copy">
               <div className="section-copy">
                 <span className="eyebrow">Design partner program</span>
@@ -331,18 +383,17 @@ function App() {
                   quickly.
                 </p>
                 <p>
-                  Design partners get direct founder involvement, rapid iteration,
-                  priority roadmap influence, and early access economics in exchange for
-                  real deployment feedback.
+                  The engagement starts with one measurable workflow, direct founder
+                  involvement, and rapid iteration inside a real operating environment.
                 </p>
               </div>
 
-              <a className="primary-button primary-button--wide" href={designPartnerHref}>
+              <a className="primary-button primary-button--wide" href={designPartnerMailto}>
                 Apply to become a design partner
               </a>
             </div>
 
-            <div className="feature-card feature-card--list">
+            <div className="feature-card feature-card--list feature-card--advantages">
               <span className="eyebrow">Partner advantages</span>
               <ul className="highlight-list">
                 {partnerHighlights.map((item) => (
@@ -364,14 +415,10 @@ function App() {
                 <h2>Built for production reality</h2>
                 <p>
                   Built by a founder with experience across Meta AI, Google Brain, Cruise,
-                  and RunPod, with a focus on real-world AI systems where latency,
-                  infrastructure, and operational constraints actually matter.
+                  and RunPod, focused on real-world AI systems where latency,
+                  infrastructure, and workflow constraints matter.
                 </p>
-                <p>
-                  The point is not pedigree for its own sake. It is to show that the
-                  product is being built by someone who understands what breaks when
-                  real-time systems leave the demo environment.
-                </p>
+                <p>The product is being built for production environments, not just demo environments.</p>
               </div>
 
               <div className="signal-block">
@@ -384,7 +431,7 @@ function App() {
               </div>
             </div>
 
-            <div className="feature-card feature-card--copy">
+            <div className="feature-card feature-card--copy feature-card--compatibility">
               <div className="section-copy">
                 <span className="eyebrow">Compatibility</span>
                 <h2>Fits into existing live-video environments</h2>
@@ -410,7 +457,7 @@ function App() {
               If live video is already part of your revenue or operations, let&apos;s
               identify the first workflow worth deploying.
             </h2>
-            <a className="primary-button" href={designPartnerHref}>
+            <a className="primary-button" href={designPartnerMailto}>
               Become a design partner
             </a>
           </section>

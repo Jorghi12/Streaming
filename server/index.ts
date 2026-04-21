@@ -25,7 +25,7 @@ type AccessRequest = {
   createdAt: string;
 };
 
-const productName = "Stream Different";
+const productName = "Liveplane";
 const validBuyerTypes = [
   "Creator / agency",
   "Commerce / shopping",
