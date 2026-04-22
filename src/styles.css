@@ -8,8 +8,8 @@
   --line: rgba(204, 232, 214, 0.14);
   --line-strong: rgba(204, 232, 214, 0.18);
   --text: #efe7d8;
-  --muted: rgba(239, 231, 216, 0.82);
-  --muted-soft: rgba(239, 231, 216, 0.64);
+  --muted: rgba(239, 231, 216, 0.84);
+  --muted-soft: rgba(239, 231, 216, 0.66);
   --accent: #f0e6d8;
   --accent-ink: #143327;
   --max-width: 1320px;
@@ -138,13 +138,13 @@ svg {
 
 .page-content {
   display: grid;
-  gap: 46px;
-  padding: 24px 0 60px;
+  gap: 44px;
+  padding: 24px 0 56px;
 }
 
 .section {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .section--centered {
@@ -153,17 +153,17 @@ svg {
 }
 
 .section--ruled {
-  padding-top: 40px;
+  padding-top: 38px;
   border-top: 1px solid var(--line);
 }
 
 .section--workflow {
-  gap: 16px;
-  padding-top: 44px;
+  gap: 14px;
+  padding-top: 42px;
 }
 
 .section--conversion {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .eyebrow,
@@ -199,7 +199,7 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 42px 44px 34px;
+  padding: 40px 42px 32px;
 }
 
 .hero-copy h1,
@@ -237,7 +237,7 @@ svg {
 
 .hero-subheadline {
   max-width: 42rem;
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   color: rgba(239, 231, 216, 0.88);
   font-size: 1.08rem;
   font-weight: 500;
@@ -246,10 +246,10 @@ svg {
 
 .hero-support {
   max-width: 40rem;
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   color: var(--muted);
-  font-size: 1.01rem;
-  line-height: 1.58;
+  font-size: 1.02rem;
+  line-height: 1.56;
 }
 
 .hero-actions {
@@ -257,37 +257,37 @@ svg {
   flex-wrap: wrap;
   gap: 14px;
   align-items: center;
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .hero-trust {
   max-width: 41rem;
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   font-size: 0.99rem;
-  line-height: 1.62;
+  line-height: 1.58;
 }
 
 .hero-panel {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 12px;
-  padding: 16px;
+  gap: 10px;
+  padding: 14px;
 }
 
 .hero-panel__header {
   display: grid;
-  gap: 5px;
+  gap: 4px;
 }
 
 .hero-panel__header strong {
-  font-size: clamp(1.78rem, 2.45vw, 2.12rem);
+  font-size: clamp(1.72rem, 2.32vw, 2rem);
   line-height: 0.96;
-  max-width: 13.8ch;
+  max-width: 14ch;
 }
 
 .hero-panel__grid {
   display: grid;
-  gap: 7px;
+  gap: 6px;
 }
 
 .hero-panel__card,
@@ -296,7 +296,7 @@ svg {
   grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: center;
-  padding: 10px 12px;
+  padding: 9px 11px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--panel-softer);
@@ -304,24 +304,25 @@ svg {
 
 .hero-panel__card-copy {
   display: grid;
-  gap: 4px;
+  gap: 3px;
 }
 
 .hero-panel__card h3 {
   margin: 0;
-  font-size: 1.24rem;
+  font-size: 1.2rem;
   line-height: 1.05;
 }
 
 .hero-panel__card p,
 .hero-panel__note p {
   margin: 0;
-  font-size: 1.01rem;
-  line-height: 1.46;
+  color: rgba(239, 231, 216, 0.88);
+  font-size: 1.02rem;
+  line-height: 1.42;
 }
 
 .hero-panel__note {
-  gap: 8px;
+  gap: 7px;
   align-items: center;
 }
 
@@ -339,8 +340,8 @@ svg {
 }
 
 .icon-badge--hero {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
 }
 
 .icon-badge--proof,
@@ -350,25 +351,25 @@ svg {
 }
 
 .icon-badge--note {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 .section-head {
   display: grid;
-  gap: 8px;
-  max-width: 49rem;
+  gap: 7px;
+  max-width: 48rem;
 }
 
 .section-head--centered {
   justify-items: center;
-  max-width: 60rem;
+  max-width: 58rem;
 }
 
 .section-head h2,
 .section-copy h2,
 .final-cta h2 {
-  font-size: clamp(2.68rem, 4.28vw, 3.96rem);
+  font-size: clamp(2.6rem, 4.12vw, 3.82rem);
   line-height: 0.95;
 }
 
@@ -377,7 +378,7 @@ svg {
 .workflow-grid,
 .row-grid {
   display: grid;
-  gap: 13px;
+  gap: 12px;
 }
 
 .proof-grid {
@@ -387,7 +388,7 @@ svg {
 .proof-card,
 .use-case-card,
 .feature-card {
-  padding: 18px;
+  padding: 17px;
 }
 
 .proof-card {
@@ -418,8 +419,8 @@ svg {
 .proof-card p,
 .use-case-card p {
   margin: 0;
-  font-size: 1.03rem;
-  line-height: 1.56;
+  font-size: 1.04rem;
+  line-height: 1.54;
 }
 
 .section-footer {
@@ -433,19 +434,19 @@ svg {
 
 .use-case-card {
   display: grid;
-  gap: 14px;
+  gap: 13px;
   text-align: left;
 }
 
 .workflow-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .workflow-card {
   display: grid;
-  gap: 11px;
-  padding: 17px 15px;
+  gap: 10px;
+  padding: 16px 14px;
   text-align: left;
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
@@ -455,16 +456,16 @@ svg {
 
 .workflow-card h3 {
   margin: 0;
-  font-size: 1.14rem;
-  line-height: 1.16;
+  font-size: 1.13rem;
+  line-height: 1.14;
   max-width: 15ch;
 }
 
 .workflow-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 1.03rem;
-  line-height: 1.5;
+  font-size: 1.04rem;
+  line-height: 1.47;
 }
 
 .row-grid {
@@ -473,36 +474,36 @@ svg {
 
 .feature-card {
   display: grid;
-  gap: 16px;
+  gap: 15px;
 }
 
 .feature-card--advantages {
   align-content: center;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 
 .feature-card--compatibility .section-copy h2 {
   max-width: 13.8ch;
-  font-size: clamp(2.06rem, 3.15vw, 3.02rem);
+  font-size: clamp(1.98rem, 2.96vw, 2.84rem);
   line-height: 0.98;
 }
 
 .section-copy {
   display: grid;
-  gap: 12px;
+  gap: 11px;
 }
 
 .section-copy p {
   margin: 0;
   max-width: 38rem;
-  font-size: 1.04rem;
-  line-height: 1.56;
+  font-size: 1.05rem;
+  line-height: 1.54;
 }
 
 .highlight-list {
   display: grid;
-  gap: 12px;
+  gap: 11px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -540,7 +541,7 @@ svg {
 .tag-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
 }
 
 .signal-row span,
@@ -553,7 +554,7 @@ svg {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.035);
-  font-size: 0.94rem;
+  font-size: 0.95rem;
 }
 
 .tag-grid {
@@ -571,19 +572,19 @@ svg {
 .final-cta {
   justify-items: center;
   text-align: center;
-  gap: 8px;
-  padding: 10px 24px 12px;
+  gap: 6px;
+  padding: 8px 24px 10px;
 }
 
 .final-cta h2 {
-  max-width: 32ch;
+  max-width: 36ch;
   margin-top: 0;
   line-height: 0.95;
-  font-size: clamp(1.62rem, 2.18vw, 2.46rem);
+  font-size: clamp(1.5rem, 1.94vw, 2.2rem);
 }
 
 .final-cta .primary-button {
-  min-width: 214px;
+  min-width: 208px;
 }
 
 @media (max-width: 1120px) {
@@ -614,8 +615,8 @@ svg {
   }
 
   .page-content {
-    gap: 40px;
-    padding: 18px 0 48px;
+    gap: 38px;
+    padding: 18px 0 44px;
   }
 
   .topbar {
@@ -668,11 +669,11 @@ svg {
   }
 
   .final-cta {
-    padding: 12px 18px 14px;
+    padding: 10px 18px 12px;
   }
 
   .final-cta h2 {
-    max-width: 15.4ch;
+    max-width: 16.2ch;
     line-height: 0.94;
   }
 
@@ -694,10 +695,10 @@ svg {
   }
 
   .section--ruled {
-    padding-top: 38px;
+    padding-top: 36px;
   }
 
   .section--workflow {
-    padding-top: 40px;
+    padding-top: 38px;
   }
 }
