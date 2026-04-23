@@ -1,3 +1,5 @@
+import { Fragment, useEffect, useState } from "react";
+
 type IconName =
   | "trend"
   | "gear"
@@ -9,49 +11,119 @@ type IconName =
   | "cart"
   | "shield"
   | "robot"
-  | "spark";
+  | "spark"
+  | "wave"
+  | "bell"
+  | "stack"
+  | "mic"
+  | "frame"
+  | "scan"
+  | "arrow"
+  | "link"
+  | "document"
+  | "person";
 
+const founderCallMailto =
+  "mailto:jorg@liveplane.cloud?subject=Liveplane%20Founder%20Call";
 const designPartnerMailto =
-  "mailto:jorg@stream.ai?subject=Liveplane%20Design%20Partner";
+  "mailto:jorg@liveplane.cloud?subject=Liveplane%20Design%20Partner%20Pilot";
 
-const heroOutcomes = [
+const teamHeadshotsImage = "/design-context/team-headshots-reference.png";
+const heroLiveFeedImage = "/design-context/live-soccer-match-broadcast-scene-reference.png";
+const heroDetectionImage = "/design-context/detection-layer-reference.png";
+const heroOutputsImage = "/design-context/outputs-reference.png";
+
+const heroBenefits = [
+  "Start with one measurable workflow",
+  "Founder-led support from day one",
+  "Fits into your existing systems and tools"
+];
+
+const heroWorkflowColumns = [
+  {
+    key: "input",
+    title: "Live feed",
+    eyebrow: "Input",
+    type: "input",
+    items: [
+      { label: "RTMP / SRT", icon: "link" },
+      { label: "WebRTC", icon: "wave" },
+      { label: "Camera feeds", icon: "video" },
+      { label: "Existing streams", icon: "frame" }
+    ]
+  },
+  {
+    key: "detect",
+    title: "Event detection",
+    eyebrow: "Liveplane AI",
+    type: "detect",
+    items: [
+      { label: "Object detection", icon: "shield" },
+      { label: "Audio events", icon: "mic" },
+      { label: "Scene changes", icon: "frame" },
+      { label: "OCR & metadata", icon: "scan" },
+      { label: "Custom rules", icon: "gear" }
+    ]
+  },
+  {
+    key: "output",
+    title: "Outputs",
+    eyebrow: "Outputs",
+    type: "output",
+    items: [
+      { title: "Instant clips", detail: "00:18 · Goal", icon: "video", thumbnail: true },
+      { title: "Alerts", detail: "Goal detected", icon: "bell" },
+      { title: "Metadata", detail: "Player: 9 · Event: Goal · Time: 45:12", icon: "stack" },
+      { title: "Webhooks / APIs", detail: "POST / events", icon: "arrow" }
+    ]
+  }
+] as const;
+
+const founderSignals = ["Meta AI", "Google Brain", "Cruise", "RunPod"];
+
+const deliveryCards = [
   {
     title: "Revenue",
-    detail: "Improve live experiences and create new monetizable outputs from the same session.",
+    detail:
+      "Create more reusable content and better live experiences that drive measurable business value.",
     icon: "trend"
   },
   {
     title: "Automation",
-    detail: "Reduce manual review, operator overhead, and post-stream cleanup.",
+    detail:
+      "Reduce manual review, operator overhead, and post-stream cleanup with real-time automation.",
     icon: "gear"
   },
   {
     title: "Action",
     detail:
-      "Generate clips, alerts, transcripts, metadata, and workflow triggers while the stream is live.",
+      "Trigger clips, alerts, transcripts, metadata, and downstream actions while the stream is live.",
     icon: "bolt"
   }
 ] satisfies Array<{ title: string; detail: string; icon: IconName }>;
 
-const valueProofCards = [
+const proofSteps = [
   {
-    title: "Connect your live feeds",
-    detail: "Bring in camera feeds, production streams, or existing video infrastructure.",
+    number: "1",
+    title: "Connect one live feed",
+    detail: "Bring in camera feeds, production streams, or existing infrastructure.",
     icon: "video"
   },
   {
-    title: "Run a high-value workflow in real time",
+    number: "2",
+    title: "Run one high-value workflow",
     detail:
-      "Detect events, answer questions, generate metadata, modify outputs, or trigger actions while the stream is live.",
+      "Detect events, answer questions, create metadata, or trigger actions while the stream is live.",
     icon: "pulse"
   },
   {
-    title: "Ship measurable output",
+    number: "3",
+    title: "Deliver measurable output",
     detail:
-      "Create clips, alerts, transcripts, overlays, structured metadata, and workflow actions tied to real business value.",
+      "Ship clips, alerts, transcripts, metadata, and workflow actions tied to business value.",
     icon: "check"
   }
-] satisfies Array<{ title: string; detail: string; icon: IconName }>;
+] satisfies Array<{ number: string; title: string; detail: string; icon: IconName }>;
 
 const useCases = [
   {
@@ -70,7 +142,7 @@ const useCases = [
     icon: "shield"
   },
   {
-    title: "Healthcare, robotics, and industrial systems",
+    title: "Industrial and robotics",
     detail: "Real-time visibility, guidance, summarization, and decision support.",
     icon: "robot"
   }
@@ -93,35 +165,82 @@ const exampleWorkflows = [
     title: "Camera-event detection and alerts",
     detail:
       "Turn passive video into operational awareness with event detection, alerts, and searchable output.",
-    icon: "shield"
+    icon: "bell"
   },
   {
     title: "Summarization and guidance for live operations",
     detail:
-      "Support telehealth, robotics, or industrial workflows with low-latency visibility, summaries, and decision support.",
-    icon: "robot"
+      "Robotics or industrial workflows with low-latency visibility, summaries, and decision support.",
+    icon: "document"
+  },
+  {
+    title: "Live QA and compliance",
+    detail:
+      "Automate quality checks, policy detection, and compliance reporting while the stream is live.",
+    icon: "shield"
   }
 ] satisfies Array<{ title: string; detail: string; icon: IconName }>;
 
-const partnerHighlights = [
-  "Founder-led implementation",
-  "Priority roadmap influence",
-  "Rapid iteration on one measurable workflow",
-  "Early access economics",
-  "Strategic upside for early partners"
+const programBullets = [
+  "Founder-led deployment and direct access",
+  "One measurable workflow to start",
+  "Rapid iteration with clear success metrics",
+  "Limited partner cohort for focused support"
 ];
 
-const founderSignals = ["Meta AI", "Google Brain", "Cruise", "RunPod"];
+const timelineWeeks = [
+  {
+    label: "Week 1",
+    title: "Discover & connect",
+    detail: "Connect a feed, align on the workflow, and define success metrics."
+  },
+  {
+    label: "Week 2",
+    title: "Deploy & validate",
+    detail: "Deploy the first workflow, validate outputs, and measure impact."
+  },
+  {
+    label: "Week 3+",
+    title: "Iterate & expand",
+    detail: "Refine, expand to additional use cases, and unlock more value."
+  }
+];
 
-const stackTags = [
-  "Camera feeds",
-  "WebRTC",
-  "RTSP",
-  "Production video",
-  "Downstream APIs",
-  "Metadata systems",
-  "Alerts",
-  "Operator workflows"
+const partnerNeeds = [
+  {
+    title: "One live workflow worth improving",
+    icon: "bolt"
+  },
+  {
+    title: "Access to a stream or environment",
+    icon: "video"
+  },
+  {
+    title: "One technical or business owner",
+    icon: "person"
+  },
+  {
+    title: "Willingness to iterate weekly",
+    icon: "pulse"
+  }
+] satisfies Array<{ title: string; icon: IconName }>;
+
+const environmentChips = [
+  { label: "Camera feeds", icon: "video" },
+  { label: "WebRTC", icon: "wave" },
+  { label: "RTMP / SRT", icon: "link" },
+  { label: "Production video", icon: "frame" },
+  { label: "Downstream APIs", icon: "arrow" },
+  { label: "Webhooks", icon: "stack" },
+  { label: "Metadata systems", icon: "scan" },
+  { label: "Alerts", icon: "bell" }
+] satisfies Array<{ label: string; icon: IconName }>;
+
+const environmentNotes = [
+  "Operator workflows",
+  "Cloud or edge deployment",
+  "Secure by design",
+  "SDKs and APIs available"
 ];
 
 function Icon({ name }: { name: IconName }) {
@@ -139,10 +258,10 @@ function Icon({ name }: { name: IconName }) {
     case "trend":
       return (
         <svg {...commonProps}>
-          <path d="M4 18V6" />
-          <path d="M6 18h12" />
-          <path d="M8 14l4-4 3 3 5-6" />
-          <path d="M16 7h4v4" />
+          <path d="M4 19V7" />
+          <path d="M10 19V10" />
+          <path d="M16 19V4" />
+          <path d="M3 19h18" />
         </svg>
       );
     case "gear":
@@ -155,7 +274,7 @@ function Icon({ name }: { name: IconName }) {
     case "bolt":
       return (
         <svg {...commonProps}>
-          <path d="M13 2 6 13h5l-1 9 8-12h-5l0-8Z" />
+          <path d="M13 2 6 13h5l-1 9 8-12h-5V2Z" />
         </svg>
       );
     case "video":
@@ -220,127 +339,382 @@ function Icon({ name }: { name: IconName }) {
           <path d="M12 4 13.7 9l5 1.7-5 1.7L12 18l-1.7-5.6-5-1.7 5-1.7L12 4Z" />
         </svg>
       );
+    case "wave":
+      return (
+        <svg {...commonProps}>
+          <path d="M3 12h4l2-5 4.2 10L16 9l2 3h3" />
+        </svg>
+      );
+    case "bell":
+      return (
+        <svg {...commonProps}>
+          <path d="M7.5 16.5h9" />
+          <path d="M9 18a3 3 0 0 0 6 0" />
+          <path d="M10 5.3a2.4 2.4 0 0 1 4.8 0c0 5 .7 6.2 2.2 8.2H7.8C9.3 11.5 10 10.3 10 5.3Z" />
+        </svg>
+      );
+    case "stack":
+      return (
+        <svg {...commonProps}>
+          <path d="M4 7.5 12 4l8 3.5L12 11 4 7.5Z" />
+          <path d="m4 12 8 3 8-3" />
+          <path d="m4 16 8 3 8-3" />
+        </svg>
+      );
+    case "mic":
+      return (
+        <svg {...commonProps}>
+          <rect x="9" y="4" width="6" height="10" rx="3" />
+          <path d="M6.5 11.5a5.5 5.5 0 0 0 11 0" />
+          <path d="M12 17v3" />
+          <path d="M9 20h6" />
+        </svg>
+      );
+    case "frame":
+      return (
+        <svg {...commonProps}>
+          <rect x="5" y="5" width="14" height="14" rx="2.5" />
+          <path d="M9 5v14" />
+          <path d="M15 5v14" />
+          <path d="M5 9h14" />
+          <path d="M5 15h14" />
+        </svg>
+      );
+    case "scan":
+      return (
+        <svg {...commonProps}>
+          <path d="M7 6H5v2" />
+          <path d="M17 6h2v2" />
+          <path d="M7 18H5v-2" />
+          <path d="M17 18h2v-2" />
+          <path d="M8 10h8" />
+          <path d="M8 14h5" />
+        </svg>
+      );
+    case "arrow":
+      return (
+        <svg {...commonProps}>
+          <path d="M4 12h14" />
+          <path d="m13 7 5 5-5 5" />
+        </svg>
+      );
+    case "link":
+      return (
+        <svg {...commonProps}>
+          <path d="M10 14 8.2 15.8a3.2 3.2 0 1 1-4.5-4.5L7 8" />
+          <path d="M14 10 15.8 8.2a3.2 3.2 0 1 1 4.5 4.5L17 16" />
+          <path d="m8 12 8 0" />
+        </svg>
+      );
+    case "document":
+      return (
+        <svg {...commonProps}>
+          <path d="M8 3h7l4 4v14H8z" />
+          <path d="M15 3v4h4" />
+          <path d="M11 12h5" />
+          <path d="M11 16h5" />
+        </svg>
+      );
+    case "person":
+      return (
+        <svg {...commonProps}>
+          <circle cx="12" cy="8.2" r="3.2" />
+          <path d="M5.5 19.5a7.2 7.2 0 0 1 13 0" />
+        </svg>
+      );
     default:
       return null;
   }
 }
 
 function App() {
+  const [activeWorkflow, setActiveWorkflow] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveWorkflow((current) => (current + 1) % heroWorkflowColumns.length);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <div className="page-shell">
       <div className="page-frame">
         <header className="topbar">
           <a className="brand" href="#top" aria-label="Liveplane">
-            <span className="brand-mark" />
+            <span className="brand-mark" aria-hidden="true">
+              <Icon name="wave" />
+            </span>
             <span className="brand-word">Liveplane</span>
           </a>
 
           <nav className="topnav" aria-label="Primary">
-            <a href="#value-proof">Value</a>
-            <a href="#use-cases">Use Cases</a>
-            <a href="#design-partner">Program</a>
+            <a href="#how-it-works">How it works</a>
+            <a className="topnav__caret" href="#use-cases">
+              Use cases
+            </a>
+            <a href="#program">Program</a>
+            <a className="topnav__caret" href="#resources">
+              Resources
+            </a>
           </nav>
 
-          <a className="topbar-cta" href={designPartnerMailto}>
-            Become a design partner
+          <a className="topbar-cta" href={founderCallMailto}>
+            Book a founder call
           </a>
         </header>
 
         <main className="page-content" id="top">
-          <section className="hero section">
+          <section className="hero" id="how-it-works">
             <div className="hero-copy">
-              <span className="eyebrow">Real-time video operations</span>
-              <h1>Turn live video into real-time revenue, automation, and action.</h1>
-              <p className="hero-subheadline">
-                Liveplane is an edge-first runtime for teams that already operate on
-                live video. It processes streams as they happen, modifies outputs in real
-                time, and emits downstream actions from the same session.
+              <span className="eyebrow eyebrow--pill">Real-time video operations</span>
+
+              <h1>
+                <span>Turn live video into</span>
+                <span>real-time revenue,</span>
+                <span>automation, and action.</span>
+              </h1>
+
+              <p className="hero-copy__lede">
+                Liveplane processes live video as it happens, detects important events in
+                real time, and turns them into clips, alerts, metadata, and downstream
+                actions — without requiring a rebuild of your existing stack.
               </p>
-              <p className="hero-support">
-                Use it to improve live experiences, automate manual workflows, generate
-                operational signals in real time, and launch new products on top of live
-                video without rebuilding your stack.
-              </p>
 
-              <div className="hero-actions">
-                <a className="primary-button" href={designPartnerMailto}>
-                  Become a design partner
-                </a>
-                <a className="secondary-button" href="#use-cases">
-                  See high-value use cases
-                </a>
-              </div>
-
-              <p className="hero-trust">
-                Built for teams where live video already drives revenue or operations
-                {" \u2014 "}including sports, commerce, security, healthcare, robotics,
-                and workflow platforms.
-              </p>
-            </div>
-
-            <aside className="hero-panel" aria-label="Design partner outcomes">
-              <div className="hero-panel__header">
-                <span>What design partners prove first</span>
-                <strong>One workflow. Measurable value. Fast learning.</strong>
-              </div>
-
-              <div className="hero-panel__grid">
-                {heroOutcomes.map((outcome) => (
-                  <article className="hero-panel__card" key={outcome.title}>
-                    <div className="icon-badge icon-badge--hero">
-                      <Icon name={outcome.icon} />
-                    </div>
-                    <div className="hero-panel__card-copy">
-                      <h3>{outcome.title}</h3>
-                      <p>{outcome.detail}</p>
-                    </div>
-                  </article>
+              <div className="hero-benefits" aria-label="Key benefits">
+                {heroBenefits.map((benefit) => (
+                  <div className="hero-benefits__item" key={benefit}>
+                    <span className="hero-benefits__icon" aria-hidden="true">
+                      <Icon name="check" />
+                    </span>
+                    <span>{benefit}</span>
+                  </div>
                 ))}
               </div>
 
-              <div className="hero-panel__note">
-                <div className="icon-badge icon-badge--note">
-                  <Icon name="spark" />
+              <div className="hero-actions">
+                <a className="primary-button" href={founderCallMailto}>
+                  Book a 20-minute founder call
+                </a>
+                <a className="secondary-button" href="#example-workflows">
+                  See example workflows
+                </a>
+              </div>
+
+              <div className="hero-trust">
+                <div className="hero-trust__avatars" aria-hidden="true">
+                  <img src={teamHeadshotsImage} alt="" />
                 </div>
-                <p>Start with one painful workflow, not a platform migration.</p>
+                <div className="hero-trust__copy">
+                  <span className="hero-trust__label">
+                    Built by engineers with experience across
+                  </span>
+                  <div className="hero-trust__logos">
+                    {founderSignals.map((signal) => (
+                      <span key={signal}>{signal}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside className="workflow-panel" aria-label="How Liveplane works">
+              <div className="workflow-panel__header">
+                <span className="eyebrow">How Liveplane works</span>
+              </div>
+
+              <div className="workflow-tabs" role="tablist" aria-label="Workflow stages">
+                {heroWorkflowColumns.map((column, index) => (
+                  <button
+                    key={column.key}
+                    type="button"
+                    className={index === activeWorkflow ? "workflow-tab is-active" : "workflow-tab"}
+                    onClick={() => setActiveWorkflow(index)}
+                    role="tab"
+                    aria-selected={index === activeWorkflow}
+                  >
+                    <span className="workflow-tab__step">{index + 1}</span>
+                    <span>{column.title}</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="workflow-pipeline">
+                {heroWorkflowColumns.map((column, index) => (
+                  <Fragment key={column.key}>
+                    <article
+                      className={
+                        index === activeWorkflow
+                          ? `workflow-column workflow-column--${column.type} is-active`
+                          : `workflow-column workflow-column--${column.type}`
+                      }
+                    >
+                      <span className="workflow-column__eyebrow">{column.eyebrow}</span>
+
+                      {column.type === "input" ? (
+                        <>
+                          <div className="workflow-input-preview">
+                            <div className="workflow-input-preview__screen">
+                              <img
+                                className="workflow-input-preview__image"
+                                src={heroLiveFeedImage}
+                                alt="Live soccer match feed"
+                              />
+                              <span className="workflow-input-preview__badge">LIVE</span>
+                            </div>
+                          </div>
+
+                          <div className="workflow-column__list">
+                            {column.items.map((item) => (
+                              <div className="workflow-list-item" key={item.label}>
+                                <span className="workflow-list-item__icon" aria-hidden="true">
+                                  <Icon name={item.icon} />
+                                </span>
+                                <span>{item.label}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      ) : null}
+
+                      {column.type === "detect" ? (
+                        <>
+                          <div className="workflow-ai-card">
+                            <img
+                              className="workflow-ai-card__preview"
+                              src={heroDetectionImage}
+                              alt="Detection layer interface"
+                            />
+                            <span className="workflow-ai-card__mark" aria-hidden="true">
+                              <Icon name="pulse" />
+                            </span>
+                            <strong>Liveplane AI</strong>
+                            <p>Real-time analysis at the edge</p>
+                          </div>
+
+                          <div className="workflow-column__list">
+                            {column.items.map((item) => (
+                              <div className="workflow-list-item" key={item.label}>
+                                <span className="workflow-list-item__icon" aria-hidden="true">
+                                  <Icon name={item.icon} />
+                                </span>
+                                <span>{item.label}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      ) : null}
+
+                      {column.type === "output" ? (
+                        <div className="workflow-output-stack">
+                          {column.items.map((item) => (
+                            <div className="workflow-output-card" key={item.title}>
+                              <div className="workflow-output-card__head">
+                                {"thumbnail" in item && item.thumbnail ? (
+                                  <span className="workflow-output-card__thumb" aria-hidden="true">
+                                    <img src={heroOutputsImage} alt="" />
+                                  </span>
+                                ) : (
+                                  <span className="workflow-output-card__icon" aria-hidden="true">
+                                    <Icon name={item.icon} />
+                                  </span>
+                                )}
+                                <div>
+                                  <strong>{item.title}</strong>
+                                  <span>{item.detail}</span>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </article>
+
+                    {index < heroWorkflowColumns.length - 1 ? (
+                      <div className="workflow-pipeline__arrow" aria-hidden="true">
+                        <Icon name="arrow" />
+                      </div>
+                    ) : null}
+                  </Fragment>
+                ))}
+              </div>
+
+              <div className="workflow-meta">
+                <span>
+                  <Icon name="bolt" />
+                  Sub-second latency
+                </span>
+                <span>Edge or cloud deployment</span>
+                <span>No platform migration</span>
               </div>
             </aside>
           </section>
 
-          <section className="section section--centered" id="value-proof">
+          <section className="section">
+            <div className="section-head section-head--centered section-head--compact">
+              <span className="eyebrow">What this delivers</span>
+            </div>
+
+            <div className="deliver-grid">
+              {deliveryCards.map((card) => (
+                <article className="deliver-card" key={card.title}>
+                  <div className="deliver-card__icon" aria-hidden="true">
+                    <Icon name={card.icon} />
+                  </div>
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.detail}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="proof-panel">
             <div className="section-head section-head--centered">
               <span className="eyebrow">Why partner early</span>
               <h2>Deploy one live workflow. Prove value fast. Expand from there.</h2>
             </div>
 
-            <div className="proof-grid">
-              {valueProofCards.map((card, index) => (
-                <article className="proof-card" key={card.title}>
-                  <span className="proof-card__number">{String(index + 1).padStart(2, "0")}</span>
-                  <div className="icon-badge icon-badge--proof">
-                    <Icon name={card.icon} />
-                  </div>
-                  <h3>{card.title}</h3>
-                  <p>{card.detail}</p>
-                </article>
+            <div className="proof-flow">
+              {proofSteps.map((step, index) => (
+                <Fragment key={step.title}>
+                  <article className="proof-step">
+                    <span className="proof-step__number">{step.number}</span>
+                    <div className="proof-step__icon" aria-hidden="true">
+                      <Icon name={step.icon} />
+                    </div>
+                    <h3>{step.title}</h3>
+                    <p>{step.detail}</p>
+                  </article>
+
+                  {index < proofSteps.length - 1 ? (
+                    <div className="proof-flow__arrow" aria-hidden="true">
+                      <Icon name="arrow" />
+                    </div>
+                  ) : null}
+                </Fragment>
               ))}
             </div>
 
-            <p className="section-footer">
-              Start with one painful workflow, not a platform migration.
+            <p className="proof-panel__note">
+              <span aria-hidden="true">
+                <Icon name="shield" />
+              </span>
+              Start with one workflow, not a platform migration.
             </p>
           </section>
 
-          <section className="section section--ruled section--centered" id="use-cases">
-            <div className="section-head section-head--centered">
+          <section className="section-surface section-surface--cream" id="use-cases">
+            <div className="section-head section-head--centered section-head--contrast">
               <span className="eyebrow">High-value use cases</span>
-              <h2>Where this creates value first</h2>
-            </div>
+                          </div>
 
             <div className="use-case-grid">
               {useCases.map((useCase) => (
                 <article className="use-case-card" key={useCase.title}>
-                  <div className="icon-badge icon-badge--use-case">
+                  <div className="use-case-card__icon" aria-hidden="true">
                     <Icon name={useCase.icon} />
                   </div>
                   <h3>{useCase.title}</h3>
@@ -350,19 +724,20 @@ function App() {
             </div>
           </section>
 
-          <section
-            className="section section--ruled section--centered section--workflow"
-            id="example-workflows"
-          >
+          <section className="workflow-section" id="example-workflows">
             <div className="section-head section-head--centered">
               <span className="eyebrow">Example first workflows</span>
-              <h2>What an initial deployment could look like</h2>
-            </div>
+                          </div>
 
-            <div className="workflow-grid">
-              {exampleWorkflows.map((workflow) => (
-                <article className="workflow-card" key={workflow.title}>
-                  <div className="icon-badge icon-badge--workflow">
+            <div className="workflow-examples">
+              {exampleWorkflows.map((workflow, index) => (
+                <article
+                  className={`workflow-example-card ${
+                    index < exampleWorkflows.length - 1 ? "workflow-example-card--arrow" : ""
+                  }`}
+                  key={workflow.title}
+                >
+                  <div className="workflow-example-card__icon" aria-hidden="true">
                     <Icon name={workflow.icon} />
                   </div>
                   <h3>{workflow.title}</h3>
@@ -372,94 +747,104 @@ function App() {
             </div>
           </section>
 
-          <section className="section section--conversion row-grid" id="design-partner">
-            <div className="feature-card feature-card--copy">
-              <div className="section-copy">
-                <span className="eyebrow">Design partner program</span>
-                <h2>Design partner program</h2>
-                <p>
-                  We are working with a small number of early partners who already have
-                  live video, a meaningful workflow bottleneck, and a reason to move
-                  quickly.
-                </p>
-                <p>
-                  The engagement starts with one measurable workflow, direct founder
-                  involvement, and rapid iteration inside a real operating environment.
-                </p>
-              </div>
+          <section className="program-grid" id="program">
+            <article className="program-card program-card--lead">
+              <span className="eyebrow">Design partner program</span>
+              <h2>A fast, low-risk path to proving real value</h2>
+              <p>
+                We work with a small number of teams that already operate live video and
+                want to prove one high-value workflow quickly inside a real environment.
+              </p>
 
-              <a className="primary-button primary-button--wide" href={designPartnerMailto}>
-                Apply to become a design partner
-              </a>
-            </div>
-
-            <div className="feature-card feature-card--list feature-card--advantages">
-              <span className="eyebrow">Partner advantages</span>
-              <ul className="highlight-list">
-                {partnerHighlights.map((item) => (
-                  <li key={item}>
-                    <span className="highlight-check" aria-hidden="true">
+              <div className="program-checks">
+                {programBullets.map((item) => (
+                  <div className="program-checks__item" key={item}>
+                    <span className="program-checks__icon" aria-hidden="true">
                       <Icon name="check" />
                     </span>
                     <span>{item}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
-            </div>
+              </div>
+
+              <a className="primary-button primary-button--wide" href={designPartnerMailto}>
+                Discuss a design partner pilot
+              </a>
+            </article>
+
+            <article className="program-card program-card--timeline">
+              <span className="eyebrow">What the first deployment looks like</span>
+              <div className="timeline-list">
+                {timelineWeeks.map((week, index) => (
+                  <div className="timeline-item" key={week.label}>
+                    <div className="timeline-item__rail" aria-hidden="true">
+                      <span />
+                      {index < timelineWeeks.length - 1 ? <i /> : null}
+                    </div>
+                    <div className="timeline-item__copy">
+                      <strong>{week.label}</strong>
+                      <h3>{week.title}</h3>
+                      <p>{week.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="program-card program-card--needs" id="resources">
+              <span className="eyebrow">What we need from you</span>
+              <div className="needs-grid">
+                {partnerNeeds.map((need) => (
+                  <div className="need-item" key={need.title}>
+                    <span className="need-item__icon" aria-hidden="true">
+                      <Icon name={need.icon} />
+                    </span>
+                    <span>{need.title}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
           </section>
 
-          <section className="section row-grid">
-            <div className="feature-card feature-card--copy">
-              <div className="section-copy">
-                <span className="eyebrow">Founder credibility</span>
-                <h2>Built for production reality</h2>
-                <p>
-                  Built by a founder with experience across Meta AI, Google Brain, Cruise,
-                  and RunPod, focused on real-world AI systems where latency,
-                  infrastructure, and workflow constraints matter.
-                </p>
-                <p>The product is being built for production environments, not just demo environments.</p>
-              </div>
+          <section className="environment-band" aria-label="Built to fit your environment">
+            <span className="eyebrow eyebrow--centered">Built to fit your environment</span>
 
-              <div className="signal-block">
-                <span className="signal-label">Experience across</span>
-                <div className="signal-row">
-                  {founderSignals.map((signal) => (
-                    <span key={signal}>{signal}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="feature-card feature-card--copy feature-card--compatibility">
-              <div className="section-copy">
-                <span className="eyebrow">Compatibility</span>
-                <h2>Fits into existing live-video environments</h2>
-                <p>
-                  Designed to work with existing camera, streaming, and production
-                  environments rather than forcing a rebuild.
-                </p>
-              </div>
-
-              <div className="tag-grid" aria-label="Existing stack compatibility">
-                {stackTags.map((tag) => (
-                  <span className={tag === "Operator workflows" ? "tag tag--wide" : "tag"} key={tag}>
-                    {tag}
+            <div className="environment-band__chips">
+              {environmentChips.map((chip) => (
+                <span className="environment-chip" key={chip.label}>
+                  <span className="environment-chip__icon" aria-hidden="true">
+                    <Icon name={chip.icon} />
                   </span>
-                ))}
-              </div>
+                  <span>{chip.label}</span>
+                </span>
+              ))}
+            </div>
+
+            <div className="environment-band__notes">
+              {environmentNotes.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
           </section>
 
-          <section className="section final-cta">
-            <span className="eyebrow">Design partner call</span>
-            <h2>
-              If live video is already part of your revenue or operations, let&apos;s
-              identify the first workflow worth deploying.
-            </h2>
-            <a className="primary-button" href={designPartnerMailto}>
-              Become a design partner
-            </a>
+          <section className="final-cta">
+            <div className="final-cta__mark" aria-hidden="true">
+              <Icon name="wave" />
+            </div>
+            <div className="final-cta__body">
+              <h2>
+                If live video already matters to your revenue or operations,
+                let&apos;s identify the first workflow worth deploying.
+              </h2>
+            </div>
+            <div className="final-cta__actions">
+              <a className="primary-button" href={founderCallMailto}>
+                Book a 20-minute founder call
+              </a>
+              <a className="secondary-button" href="#example-workflows">
+                See example workflows
+              </a>
+            </div>
           </section>
         </main>
       </div>
