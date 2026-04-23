@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 28" fill="none">
+  <path d="M10 6.5 15.7 10v8L10 21.5 4.3 18v-8L10 6.5Z" stroke="#F3E9DC" stroke-width="2"/>
+  <path d="M10 6.5V14m5.7-4L10 14m0 0-5.7-4" stroke="#F3E9DC" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="24" y="20" fill="#F3E9DC" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.02em">RunPod</text>
+</svg>

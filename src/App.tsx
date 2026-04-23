@@ -79,7 +79,12 @@ const heroWorkflowColumns = [
   }
 ] as const;
 
-const founderSignals = ["Meta AI", "Google Brain", "Cruise", "RunPod"];
+const founderSignals = [
+  { name: "Meta AI", logo: "/brands/meta-ai.svg" },
+  { name: "Google", logo: "/brands/google.svg" },
+  { name: "Cruise", logo: "/brands/cruise.svg" },
+  { name: "RunPod", logo: "/brands/runpod.svg" }
+];
 
 const deliveryCards = [
   {
@@ -244,187 +249,13 @@ const environmentNotes = [
 ];
 
 function Icon({ name }: { name: IconName }) {
-  const commonProps = {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "1.8",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true
-  };
-
-  switch (name) {
-    case "trend":
-      return (
-        <svg {...commonProps}>
-          <path d="M4 19V7" />
-          <path d="M10 19V10" />
-          <path d="M16 19V4" />
-          <path d="M3 19h18" />
-        </svg>
-      );
-    case "gear":
-      return (
-        <svg {...commonProps}>
-          <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z" />
-          <path d="M19.4 12a7.4 7.4 0 0 0-.1-1.2l2-1.6-2-3.5-2.4 1a8.6 8.6 0 0 0-2-.9L14.5 3h-5L9 5.8a8.6 8.6 0 0 0-2 .9l-2.4-1-2 3.5 2 1.6a7.4 7.4 0 0 0 0 2.4l-2 1.6 2 3.5 2.4-1a8.6 8.6 0 0 0 2 .9l.5 2.8h5l.5-2.8a8.6 8.6 0 0 0 2-.9l2.4 1 2-3.5-2-1.6c.1-.4.1-.8.1-1.2Z" />
-        </svg>
-      );
-    case "bolt":
-      return (
-        <svg {...commonProps}>
-          <path d="M13 2 6 13h5l-1 9 8-12h-5V2Z" />
-        </svg>
-      );
-    case "video":
-      return (
-        <svg {...commonProps}>
-          <rect x="3" y="6.5" width="12" height="11" rx="2.5" />
-          <path d="m15 10 6-3v10l-6-3" />
-        </svg>
-      );
-    case "pulse":
-      return (
-        <svg {...commonProps}>
-          <path d="M3 12h4l2.2-4.5 3.4 9 2.5-6H21" />
-        </svg>
-      );
-    case "check":
-      return (
-        <svg {...commonProps}>
-          <path d="m5 12 4.2 4.2L19 6.8" />
-        </svg>
-      );
-    case "globe":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M3 12h18" />
-          <path d="M12 3c2.5 2.7 4 5.8 4 9s-1.5 6.3-4 9c-2.5-2.7-4-5.8-4-9s1.5-6.3 4-9Z" />
-        </svg>
-      );
-    case "cart":
-      return (
-        <svg {...commonProps}>
-          <path d="M4 6h2l2 10h9l2-7H7.5" />
-          <circle cx="10" cy="19" r="1.6" />
-          <circle cx="17" cy="19" r="1.6" />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg {...commonProps}>
-          <path d="M12 3 5.5 5.5v5.8c0 4.2 2.7 7.8 6.5 9.7 3.8-1.9 6.5-5.5 6.5-9.7V5.5L12 3Z" />
-          <path d="m9.4 12.3 1.8 1.8 3.6-3.8" />
-        </svg>
-      );
-    case "robot":
-      return (
-        <svg {...commonProps}>
-          <path d="M9 4h6" />
-          <path d="M12 4V2" />
-          <rect x="6" y="7" width="12" height="9" rx="2.5" />
-          <path d="M9 16v4" />
-          <path d="M15 16v4" />
-          <path d="M6 11H4" />
-          <path d="M20 11h-2" />
-          <circle cx="10" cy="11" r="1" />
-          <circle cx="14" cy="11" r="1" />
-        </svg>
-      );
-    case "spark":
-      return (
-        <svg {...commonProps}>
-          <path d="M12 4 13.7 9l5 1.7-5 1.7L12 18l-1.7-5.6-5-1.7 5-1.7L12 4Z" />
-        </svg>
-      );
-    case "wave":
-      return (
-        <svg {...commonProps}>
-          <path d="M3 12h4l2-5 4.2 10L16 9l2 3h3" />
-        </svg>
-      );
-    case "bell":
-      return (
-        <svg {...commonProps}>
-          <path d="M7.5 16.5h9" />
-          <path d="M9 18a3 3 0 0 0 6 0" />
-          <path d="M10 5.3a2.4 2.4 0 0 1 4.8 0c0 5 .7 6.2 2.2 8.2H7.8C9.3 11.5 10 10.3 10 5.3Z" />
-        </svg>
-      );
-    case "stack":
-      return (
-        <svg {...commonProps}>
-          <path d="M4 7.5 12 4l8 3.5L12 11 4 7.5Z" />
-          <path d="m4 12 8 3 8-3" />
-          <path d="m4 16 8 3 8-3" />
-        </svg>
-      );
-    case "mic":
-      return (
-        <svg {...commonProps}>
-          <rect x="9" y="4" width="6" height="10" rx="3" />
-          <path d="M6.5 11.5a5.5 5.5 0 0 0 11 0" />
-          <path d="M12 17v3" />
-          <path d="M9 20h6" />
-        </svg>
-      );
-    case "frame":
-      return (
-        <svg {...commonProps}>
-          <rect x="5" y="5" width="14" height="14" rx="2.5" />
-          <path d="M9 5v14" />
-          <path d="M15 5v14" />
-          <path d="M5 9h14" />
-          <path d="M5 15h14" />
-        </svg>
-      );
-    case "scan":
-      return (
-        <svg {...commonProps}>
-          <path d="M7 6H5v2" />
-          <path d="M17 6h2v2" />
-          <path d="M7 18H5v-2" />
-          <path d="M17 18h2v-2" />
-          <path d="M8 10h8" />
-          <path d="M8 14h5" />
-        </svg>
-      );
-    case "arrow":
-      return (
-        <svg {...commonProps}>
-          <path d="M4 12h14" />
-          <path d="m13 7 5 5-5 5" />
-        </svg>
-      );
-    case "link":
-      return (
-        <svg {...commonProps}>
-          <path d="M10 14 8.2 15.8a3.2 3.2 0 1 1-4.5-4.5L7 8" />
-          <path d="M14 10 15.8 8.2a3.2 3.2 0 1 1 4.5 4.5L17 16" />
-          <path d="m8 12 8 0" />
-        </svg>
-      );
-    case "document":
-      return (
-        <svg {...commonProps}>
-          <path d="M8 3h7l4 4v14H8z" />
-          <path d="M15 3v4h4" />
-          <path d="M11 12h5" />
-          <path d="M11 16h5" />
-        </svg>
-      );
-    case "person":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="8.2" r="3.2" />
-          <path d="M5.5 19.5a7.2 7.2 0 0 1 13 0" />
-        </svg>
-      );
-    default:
-      return null;
-  }
+  return (
+    <span
+      className="icon-svg"
+      aria-hidden="true"
+      style={{ ["--icon-url" as any]: `url(/icons/${name}.svg)` }}
+    />
+  );
 }
 
 function App() {
@@ -510,9 +341,11 @@ function App() {
                   <span className="hero-trust__label">
                     Built by engineers with experience across
                   </span>
-                  <div className="hero-trust__logos">
+                  <div className="hero-trust__logos" aria-label="Prior experience logos">
                     {founderSignals.map((signal) => (
-                      <span key={signal}>{signal}</span>
+                      <span className="hero-trust__logo" key={signal.name}>
+                        <img className="hero-trust__logo-image" src={signal.logo} alt={signal.name} />
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -707,7 +540,7 @@ function App() {
           </section>
 
           <section className="section-surface section-surface--cream" id="use-cases">
-            <div className="section-head section-head--centered section-head--contrast">
+            <div className="section-head section-head--centered section-head--contrast section-head--spaced">
               <span className="eyebrow">High-value use cases</span>
                           </div>
 
@@ -725,7 +558,7 @@ function App() {
           </section>
 
           <section className="workflow-section" id="example-workflows">
-            <div className="section-head section-head--centered">
+            <div className="section-head section-head--centered section-head--spaced">
               <span className="eyebrow">Example first workflows</span>
                           </div>
 
@@ -832,10 +665,15 @@ function App() {
               <Icon name="wave" />
             </div>
             <div className="final-cta__body">
+              <span className="eyebrow">Start with one workflow</span>
               <h2>
                 If live video already matters to your revenue or operations,
                 let&apos;s identify the first workflow worth deploying.
               </h2>
+              <p>
+                High-signal deployment, direct founder support, and measurable value in weeks —
+                without forcing a platform migration.
+              </p>
             </div>
             <div className="final-cta__actions">
               <a className="primary-button" href={founderCallMailto}>
